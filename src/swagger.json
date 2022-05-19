@@ -1,0 +1,218 @@
+{
+  "openapi": "3.0.0",
+  "info":{
+      "title": "Curso Node - Desafio 2, documentação swagger",
+      "description": "This is an API Rent",
+      "version": "1.0.0",
+      "contact":{
+          "email": "marco.antonio1233@gmail.com"
+      }
+  },
+  "paths":{
+      "/users":{
+          "post":{
+          "tags": ["User"],
+          "summary": "Criar um usuário",
+          "description": " Criar novo usuário",
+          "requestBody": {
+              "required": true,
+              "content": {
+                  "application/json":{
+                      "schema":{
+                          "type": "object",
+                          "properties":{
+                              "name":{
+                                  "type": "string"
+                              },
+                              "email":{
+                                   "type": "string"
+                              }
+                          },
+                          "example":{
+                              "name": "Marco",
+                              "email": "Marco@blabla.com.br"
+                          }
+                      }
+                  }
+              }
+          },
+          "responses": {
+              "201": {
+                  "description": "Created",
+                  "content":{
+                    "application/json":{
+                        "schema":{
+                            "type":"object",
+                                "properties":{
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description":{
+                                        "type":"string"
+                                    }
+                                }
+                            
+                        }
+                    }
+                }
+              },
+              "400": {
+                  "description": "User alredy exists!"
+              }
+          }
+      },
+      "get":{
+          "tags": ["User"],
+          "summary": "Listar todos os usuários",
+          "description":"Listar todos os usuários caso o solicitante seja ADM",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "header",
+    
+              "required": true
+            }
+          ],
+          "responses":{
+              "200":{
+                  "description":"Success",
+                  "content":{
+                      "application/json":{
+                          "schema":{
+                              "type":"array",
+                              "items":{
+                                  "type":"object",
+                                  "properties":{
+                                      "id": {
+                                          "type": "string"
+                                      },
+                                      "name":{
+                                          "type":"string"
+                                      },
+                                      "admin":{
+                                          "type":"boolean"
+                                      },
+                                      "email":{
+                                          "type":"string"
+                                      },
+                                      "created_at":{
+                                          "type":"string"
+                                      },
+                                      "updated_at":{
+                                          "type":"string"
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              },
+              "400": {
+                  "description": "User is not a Adm"
+              }
+          }
+
+      }
+    }, 
+  "/users/{user_id}":{
+    "get":{
+      "tags": ["User"],
+      "summary": "Listar usuário por ID",
+      "description":"Listar usuário por ID",
+      "parameters": [
+        {
+          "name": "user_id",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "responses":{
+          "200":{
+              "description":"Success",
+              "content":{
+                  "application/json":{
+                      "schema":{
+                              "type":"object",
+                              "properties":{
+                                  "id": {
+                                      "type": "string"
+                                  },
+                                  "name":{
+                                      "type":"string"
+                                  },
+                                  "admin":{
+                                      "type":"boolean"
+                                  },
+                                  "email":{
+                                      "type":"string"
+                                  },
+                                  "created_at":{
+                                      "type":"string"
+                                  },
+                                  "updated_at":{
+                                      "type":"string"
+                                  }
+                          }
+                      }
+                  }
+              }
+          },
+          "400": {
+              "description": "User not found!"
+          }
+      }
+     }
+    },
+    "/users/{user_id}/admin":{
+      "patch":{
+        "tags": ["User"],
+        "summary": "Tornar usuário ADM",
+        "description":"Tornar usuário ADM",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses":{
+            "200":{
+                "description":"Success",
+                "content":{
+                    "application/json":{
+                        "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "name":{
+                                        "type":"string"
+                                    },
+                                    "admin":{
+                                        "type":"boolean"
+                                    },
+                                    "email":{
+                                        "type":"string"
+                                    },
+                                    "created_at":{
+                                        "type":"string"
+                                    },
+                                    "updated_at":{
+                                        "type":"string"
+                                    }
+                            }
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "User not found!"
+            }
+        }
+       }
+      }    
+  }
+}
